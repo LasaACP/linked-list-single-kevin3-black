@@ -4,29 +4,57 @@ Header file for single linked list class library
 
 */
 
+#ifndef __SLIST_H_INCLUDED__
+#define __SLIST_H_INCLUDED__
+#endif
 
-// add(value)				//Adds a new value to the end of this list.
+#include <string>
 
-// clear()					//Removes all elements from this list.
+template <class Obj>
+class LinkedList
+{
 
-// equals(list)				//Returns true if the two lists contain the same elements in the same order.
+  struct node {
+    Obj value;
+    node* next;
+    node(Obj val) { value = val;}
+    node(Obj val, node* n) { value = val; next = n; }
+  };
 
-//get(index)				//Returns the element at the specified index in this list.
+  node* head;
+  int length;
 
-//insert(index, value)		//Inserts the element into this list before the specified index.
 
-//exchg(index1, index2)		//Switches the payload data of specified indexex.
+public:
 
-// isEmpty()				//Returns true if this list contains no elements.
+  LinkedList(Obj);
+  LinkedList();
+  ~LinkedList();
 
-// mapAll(fn)				//Calls the specified function on each element of the linkedlist in ascending index order.
+  void add(Obj);				//Adds a new value to the end of this list.
 
-// remove(index)			//Removes the element at the specified index from this list.
+  void clear();					//Removes all elements from this list.
 
-// set(index, value)		//Replaces the element at the specified index in this list with a new value.
+  bool equals(LinkedList<Obj>*);    //Returns true if the two lists contain the same elements in the same order.
 
-// size()					//Returns the number of elements in this list.
+  Obj get(int);				//Returns the element at the specified index in this list.
 
-// subList(start, length)	//Returns a new list containing elements from a sub-range of this list.
+  void insert(int, Obj);		//Inserts the element into this list before the specified index.
 
-// toString()				//Converts the list to a printable string representation.
+  void exchg(int, int);		//Switches the payload data of specified indexex.
+
+  bool isEmpty();				//Returns true if this list contains no elements.
+
+  void mapAll(void (*f)(Obj));				//Calls the specified function on each element of the linkedlist in ascending index order.
+
+  void remove(int);			//Removes the element at the specified index from this list.
+
+  void set(int, Obj);		//Replaces the element at the specified index in this list with a new value.
+
+  int size();					//Returns the number of elements in this list.
+
+  LinkedList<Obj>* subList(int, int);	//Returns a new list containing elements from a sub-range of this list.
+
+  std::string toString();				//Converts the list to a printable string representation.
+
+};

@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <cmath> 
+#include <cmath>
 #include "slist.h"
 
 using namespace std;
@@ -19,7 +19,7 @@ public:
     char    code[5];
     double   longitude;
     double   latitude;
-    
+
 };
 
 
@@ -35,7 +35,7 @@ int main()
     Airport* airportArr[13500];
     int   airportCount;
     //Airport* a[13500];
-    
+
     infile.open ("./USAirportCodes.csv", ifstream::in);
     if (infile.is_open())
     {
@@ -56,17 +56,17 @@ int main()
             if (!(c % 1000))
             {
                 cout << airportArr[c]->code << " long: " << airportArr[c]->longitude << " lat: " << airportArr[c]->latitude <<  endl;
-                cout << airportArr[c+1]->code << endl; //" long: " << airportArr[c+1]->longitude << " lat: " << airportArr[c+1]->latitude <<  endl;                               
+                cout << airportArr[c+1]->code << endl; //" long: " << airportArr[c+1]->longitude << " lat: " << airportArr[c+1]->latitude <<  endl;
             }
             */
 
-            
+
             i++ ;
             c++;
         }
         airportCount = c-1;
         infile.close();
-        
+
          for (int c=0; c < airportCount; c++)
             if (!(c % 1000))
             {
@@ -83,14 +83,14 @@ int main()
     {
         cout << "Error opening file";
     }
- 
+
 
 
    // Initialize Linked List
-   
-   // 
 
-    
+   //
+
+
 }
 
 
