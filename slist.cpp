@@ -1,6 +1,7 @@
 #include "slist.h"
 #include <string>
 #include <iostream>
+#include <sstream>
 
 /*
 
@@ -96,26 +97,34 @@ void LinkedList<Obj>::exchg(int index1, int index2) {
     return;
   }
   else if (index1 == 0 || index2 == 0) {
+    if (index1 > index2) {int t = index1; index1 = index2; index2 = t;}
     node* current = this->head;
-    for (int i = 1; i < (index1 == 0 ? index2 : index1); i++) current = current->next;
-    node* temp = current->next->next;
-    current->next->next = this->head->next;
+    for (int i = 1; i < index2; i++) current = current->next;
+    node* currnext = current->next;
+    node* temp = currnext->next;
+    if (index2 != 1) {
+      current->next = this->head;
+      currnext->next = this->head->next;
+    }
+    else currnext->next = this->head;
     this->head->next = temp;
-    temp = current->next;
-    current->next = this->head;
-    this->head = temp;
+    this->head = currnext;
   }
   else {
     node* current1 = this->head;
     node* current2 = this->head;
     for (int i = 1; i < index1; i++) current1 = current1->next;
     for (int i = 1; i < index2; i++) current2 = current2->next;
-    node* temp = current1->next->next;
-    current1->next->next = current2->next->next;
-    current2->next->next = temp;
-    temp = current1->next;
-    current1->next = current2->next;
-    current2->next = temp;
+
+    node* curr1next = current1->next;
+    node* curr2next = current2->next;
+    current1->next = curr2next;
+    current2->next = curr1next;
+
+    node* temp = curr1next->next;
+    curr1next->next = curr2next->next;
+    curr2next->next = temp;
+
   }
 }
 
@@ -140,13 +149,11 @@ void LinkedList<Obj>::remove(int index) {
   if (index == 0) {
     node* temp = this->head;
     this->head = this->head->next;
-    delete temp;
   } else {
     node* current = this->head;
     for (int i = 1; i < index; i++) current = current->next;
     node* temp = current->next;
     current->next = current->next->next;
-    delete temp;
   }
   this->length--;
 }
@@ -172,7 +179,7 @@ LinkedList<Obj>* LinkedList<Obj>::subList(int start, int length) {
   node* current = this->head;
   for (int i = 0; i < start; i++) current = current->next;
   LinkedList<Obj>* newList = new LinkedList<Obj>(current->value);
-  for (int i = 1; i < length; i++) {
+  for (int i = 1; i < this->length; i++) {
     newList->add(current->next->value);
     current = current->next;
   }
@@ -182,14 +189,16 @@ LinkedList<Obj>* LinkedList<Obj>::subList(int start, int length) {
 // toString()				//Converts the list to a printable string representation.
 template <class Obj>
 std::string LinkedList<Obj>::toString() {
-  std::string str = "[";
+  std::stringstream ss;
+  ss << "[";
   node* current = this->head;
   for (int i = 0; i < this->length; i++) {
-    str = str + std::to_string(current->value) + (i==this->length-1 ? "" : ", ");
+    ss << current->value << (i==this->length-1 ? "" : ", ");
     current = current->next;
   }
-  str += "]";
-  return str;
+  ss << "]";
+  return ss.str();
 }
 
 template class LinkedList<int>;
+template class LinkedList<Airport*>;

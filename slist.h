@@ -10,6 +10,16 @@ Header file for single linked list class library
 
 #include <string>
 
+class Airport
+{
+ public:
+  char    code[20];
+  double   longitude;
+  double   latitude;
+  double distanceAUS;
+};
+
+
 template <class Obj>
 class LinkedList
 {
@@ -17,7 +27,7 @@ class LinkedList
   struct node {
     Obj value;
     node* next;
-    node(Obj val) { value = val;}
+    node(Obj val) { value = val; next = NULL;}
     node(Obj val, node* n) { value = val; next = n; }
   };
 
